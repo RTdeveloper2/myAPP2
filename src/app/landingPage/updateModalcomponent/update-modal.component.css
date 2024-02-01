@@ -1,0 +1,39 @@
+
+:host {
+  display: block;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+mat-dialog-actions {
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+button {
+  margin-left: 10px;
+}

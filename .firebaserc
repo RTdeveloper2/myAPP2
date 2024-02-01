@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "dffsddf-6b291": {
+      "hosting": {
+        "myapp2": [
+          "dffsddf-6b291"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "dffsddf-6b291"
+  }
+}
