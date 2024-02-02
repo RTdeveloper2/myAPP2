@@ -9,9 +9,12 @@ import { tap } from 'rxjs';
     <div>
       <carousel *ngIf="posts?.length > 0">
       <div class="create-item">
-    <button class="btn" mat-icon-button color="primary" (click)="createItem()">
+    <button mat-icon-button color="primary" (click)="createItem()">
       <mat-icon>add</mat-icon>
     </button>
+    <button class="btn" mat-icon-button color="primary" (click)="show()">
+    show recent posts
+  </button>
   </div>
         <slide *ngFor="let post of posts; let i = index">
           <div class="carousel-caption">
@@ -38,6 +41,7 @@ import { tap } from 'rxjs';
 })
 export class CarouselComponent implements OnInit {
   posts: any;
+  recentPosts:any
   constructor(public crudService: CrudService, private dialog: MatDialog) {}
   ngOnInit(): void {
     this.crudService.getItems().subscribe((res) => {
@@ -49,7 +53,7 @@ export class CarouselComponent implements OnInit {
     this.posts.splice(index, 1);
   }
   updateItem(post: any): void {
-    this.openUpdateModal(post).subscribe((result) => {
+    this.openUpdateModal('Update Post',true).subscribe((result) => {
       if (result) {
         post.title = result.title ? result.title  : post.title;
         post.body =  result.body ? result.body  : post.body;
@@ -59,7 +63,7 @@ export class CarouselComponent implements OnInit {
   }
 
   createItem(): void {
-    this.openUpdateModal().subscribe((result) => {
+    this.openUpdateModal('Create New Post',true).subscribe((result) => {
       if (result) {
         const newPost = { title: result.title, body: result.body };
         this.crudService.addItem(newPost).pipe(
@@ -69,12 +73,20 @@ export class CarouselComponent implements OnInit {
     });
   }
 
-  private openUpdateModal(post?: any) {
+  private openUpdateModal(label?:string,enable?:boolean) {
     const dialogRef = this.dialog.open(UpdateModalComponent, {
-      width: '300px',
-      data: post || {} // Pass post data if available
+      width: '500px',
+      data: {buttonLabel:label,isEnable:enable}
     });
 
     return dialogRef.afterClosed();
+  }
+
+  show(){
+    this.openUpdateModal(undefined,false).subscribe((result) => {
+      if (result) {
+        
+      }
+    });
   }
 }
